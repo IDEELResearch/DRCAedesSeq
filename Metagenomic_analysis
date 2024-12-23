@@ -79,7 +79,7 @@ cd unmapped_reads/
 mkdir bam_to_fastq/
 for i in *.bam; do bedtools bamtofastq -i ${i} -fq bam_to_fastq/${i%.bam}.fastq; done
 
-## 6. Taxonomic classification of reads remaining in field mosquito pools using KrakenUniq with its default mode and default nt and viral databases ######################
+## 6. Taxonomic classification of reads remaining in field mosquito pools using KrakenUniq (version 1.0.4) with its default mode and default nt and viral databases ######################
 
 module load perl
 
