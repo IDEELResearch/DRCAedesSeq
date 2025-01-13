@@ -4,12 +4,13 @@
 #Purpose: create maps of sample collection sites within the Democratic Republic of the Congo (DRC)
 ###########################################################################################################################################################################
 
-install.packages("sf")
+install.packages("sf", type = "source", 
+                 configure.args = "--with-gdal-config=/usr/bin/gdal-config --with-proj-lib=/usr/lib")
+install.packages("tmap")
 install.packages("sp")
 install.packages("rnaturalearth")
 install.packages("rnaturalearthdata")
 install.packages("ggplot2")
-install.packages("tmap")
 
 library(ggplot2)
 library(sf)
@@ -45,6 +46,8 @@ ggplot(data = africa) +
     plot.background = element_rect(fill = "white", color = NA)
   )
 
+ggsave(filename = "results/Africa_map.png", width = 8, height = 6)
+
 # Get the data of DRC, load administrative boundaries (.shp file) from https://gadm.org/
 congo <- ne_countries(scale = "medium", country = "Democratic Republic of the Congo", returnclass = "sf")
 city_boundaries <- st_read("gadm41_COD_1.shp")
@@ -74,6 +77,8 @@ Congo_map <- Congo_map+
 
 print(Congo_map)
 
+ggsave(filename = "results/DRC_map.png", plot = Congo_map, width = 8, height = 6)
+
 ## Get Kongo-Central base mape and get boundaries from https://data.humdata.org/ (use RDC_Aires de santé.shp file), highlight Kimpese
 
 KongoCentral_map <- ggplot(data = KongoCentral) +
@@ -102,6 +107,8 @@ Kimpese_map <- KongoCentral_map+
 
 print(Kimpese_map)
 
+ggsave(filename = "results/KCP_map.png", plot = Kimpese_map, width = 8, height = 6)
+
 # Filter the data for Ceco, Malanga, and Viaza
 Ceco <- Kimpese[Kimpese$AS_ == "CECO",]
 Malanga <- Kimpese[Kimpese$AS_ == "MALANGA", ]
@@ -113,7 +120,7 @@ Viaza <- Kimpese[Kimpese$AS_ == "VIAZA", ]
 Kimpese_base <- tm_shape(Kimpese) +
   tm_borders() +
   tm_layout(legend.position = c("left", "bottom"),scale = 0.8) +
-  tm_scale_bar(position = c("left", "bottom")) 
+  tm_scale_bar(position = c("left", "bottom"), width = 0.2, text.size = 0.7) 
 
 Ceco_highlight <- tm_shape(Ceco) +
   tm_fill("red", alpha = 0.3) +  # Example: Highlight color and transparency
@@ -144,3 +151,5 @@ Kimpese_map <- Kimpese_base+Ceco_highlight+Viaza_highlight+Malanga_highlight+tm_
 
 # Display the map
 print(Kimpese_map)
+
+tmap_save(Kimpese_map, filename = "results/Kimpese_map.png", width = 800, height = 600)
