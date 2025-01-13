@@ -39,7 +39,7 @@ library(ggrepel)
 setwd("/PATH/")
 
 ### Load data for Venn analysis at family level
-family_summary <- read_excel("Venn_analysis_family.xlsx")
+family_summary <- read_excel("Venn_analysis_family_example_data.xlsx")
 family_summary <- as.data.frame(family_summary)
 rownames(family_summary) <- family_summary$Family
 family_summary <- family_summary[,-9]
@@ -66,7 +66,7 @@ plot(family_venn,
 
 ### Load data for Venn analysis at genus level
 
-genus_summary <- read_excel("Venn_analysis_genus.xlsx")
+genus_summary <- read_excel("Venn_analysis_genus_example_data.xlsx")
 genus_summary <- as.data.frame(genus_summary)
 rownames(genus_summary) <- genus_summary$genus
 genus_summary <- genus_summary[,-9]
@@ -93,7 +93,7 @@ plot(genus_venn,
      quantities = TRUE)
 
 ### Load data for viral relative abundance analysis at family level (Plot top 5 families)
-top5_family <- read_excel("relative_abundance_family.xlsx")
+top5_family <- read_excel("relative_abundance_family_example_data.xlsx")
 top5_family$Family_reorder  <- with(top5_family, reorder(top5_family$Family, top5_family$RelativeAbundance))
 top5_family$label <- paste(top5_family$Family, round(top5_family$RelativeAbundance,digits=2), sep = " ")
 
@@ -113,7 +113,7 @@ family_bar<-ggplot(data=top5_family, aes(x=top5_family$SampleName, y=top5_family
 family_bar
 
 ### Load data for viral relative abundance analysis at genus level (Plot top 5 genera)
-top5_genus <- read_excel("relative_abundance_genus.xlsx")
+top5_genus <- read_excel("relative_abundance_genus_example_data.xlsx")
 top5_genus$Genus_reorder  <- with(top5_genus, reorder(top5_genus$Genus, top5_genus$RelativeAbundance))
 top5_genus$label <- paste(top5_genus$Genus, round(top5_genus$RelativeAbundance,digits=2), sep = " ")
 
@@ -133,7 +133,7 @@ genus_bar
 
 ### PCA analysis based on viral genus annotation
 
-PCAdf <- read_excel("PCA_analysis_genus.xlsx")
+PCAdf <- read_excel("PCA_analysis_genus_example_data.xlsx")
 PCAdf <- as.data.frame(PCAdf)
 rownames(PCAdf) <- PCAdf[,1]
 PCAdf <- PCAdf[,-1]
@@ -181,7 +181,7 @@ pca_plot
 
 ### Plotting blast and krakenuniq results for huamn and animal viruses
 
-annotation_result <- read_excel("BLAST_krakenquniq_results.xlsx")
+annotation_result <- read_excel("BLAST_krakenquniq_results_example_data.xlsx")
 annotation_plot <- ggplot(annotation_result, aes(x=Sample, y=Viruses, color=`Krakenuniq annonation`, fill=`Krakenuniq annonation`, shape=Blast))+ geom_point(size=12.5)+scale_shape_manual(values = c(15,16))+
   labs(x="Mosquito pool", y="", color="Krakenuniq annotation result",fill="Krakenuniq annotation result", shape="Blast result")+
   theme(axis.text.y = element_text(size = 30, face="italic"),
@@ -196,7 +196,7 @@ annotation_plot <- ggplot(annotation_result, aes(x=Sample, y=Viruses, color=`Kra
 annotation_plot
 
 ### Plotting blood meal analysis results
-Blood_meal_annotation <- read_excel("Blood_meal.xlsx")
+Blood_meal_annotation <- read_excel("Blood_meal_analysis_example_data.xlsx")
 Blood_meal_plot <- ggplot(Blood_meal_annotation, aes(x=Blood_meal_annotation$`Sample name`, y=Genus))+ 
   geom_point(aes(fill=as.factor(Blood_meal_annotation$Detection), color=as.factor(Blood_meal_annotation$Detection)), size=6, shape=15)+
   scale_fill_manual(values = c("0" = "white", "1" = "red"),labels = c("Negative", "Positive")) +
