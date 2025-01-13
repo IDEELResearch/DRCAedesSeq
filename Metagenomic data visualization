@@ -181,7 +181,7 @@ pca_plot
 
 ### Plotting blast and krakenuniq results for huamn and animal viruses
 
-annotation_result <- read_excel("BLAST_krakenquniq_results_example_data.xlsx")
+annotation_result <- read_excel("BLAST_krakenuniq_results_example_data.xlsx")
 annotation_plot <- ggplot(annotation_result, aes(x=Sample, y=Viruses, color=`Krakenuniq annonation`, fill=`Krakenuniq annonation`, shape=Blast))+ geom_point(size=12.5)+scale_shape_manual(values = c(15,16))+
   labs(x="Mosquito pool", y="", color="Krakenuniq annotation result",fill="Krakenuniq annotation result", shape="Blast result")+
   theme(axis.text.y = element_text(size = 30, face="italic"),
