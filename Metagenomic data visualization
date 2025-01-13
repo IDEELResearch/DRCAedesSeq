@@ -157,7 +157,7 @@ fr <- la/sum(la)#calculate the percentage of the single factor can explain
 cu <- cumsum(fr)#calculate the sum of the percentage of the factors can explain
 
 collection_site <- factor(c("Kimpese city", "Kimpese city", "Kimpese city","Kimpese city","Kimpese city","Malanga", "Viaza","Viaza"))
-pca_data <- as.data.frame(output.pca$x[, 1:2])  # Get the first 2 PCs
+pca_data <- as.data.frame(out.pca$x[, 1:2])  # Get the first 2 PCs
 pca_data$CollectionSite <- collection_site  
 pca_data$Sample <- rownames(pca_data)
 
