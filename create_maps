@@ -74,14 +74,14 @@ print(Congo_map)
 
 KongoCentral_map <- ggplot(data = KongoCentral) +
   geom_sf(fill = "lightgrey", color = "white")+
-  geom_sf(data = CongoCentral, fill = NA, color = "white", size = 0.5)
+  geom_sf(data = KongoCentral, fill = NA, color = "white", size = 0.5)
 
 boundaries <- st_read("RDC_Aires de santé.shp")
 
 # Get Kimpese data and highlight Kimpese
 
 Kimpese <- boundaries[boundaries$ZS == "Kimpese", ]
-Kimpese_map <- CongoCentral_map+
+Kimpese_map <- KongoCentral_map+
   geom_sf(data = Kimpese, fill = "red", color = "white")+
   theme(
     axis.title.x = element_blank(),
