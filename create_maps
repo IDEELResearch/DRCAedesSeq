@@ -8,11 +8,13 @@ install.packages("sf")
 install.packages("rnaturalearth")
 install.packages("rnaturalearthdata")
 install.packages("ggplot2")
+install.packages("tmap")
 
 library(ggplot2)
 library(sf)
 library(rnaturalearth)
 library(rnaturalearthdata)
+library(tmap)
 
 ###Set working directory###
 setwd("/Path/")
