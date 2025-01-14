@@ -58,12 +58,13 @@ set_V <- family_summary$V_total == 1
 
 venn(list(K = which(set_K), M = which(set_M), V = which(set_V)))
 
-family_venn <- euler(c("Kimpese city" = 14, Malanga = 6, Viaza = 3, "Kimpese city&Malanga" = 5, "Kimpese city&Viaza" = 5, "Viaza&Malanga" = 1, "Kimmpese city&Malanga&Viaza" = 17), counts = TRUE)
+family_venn <- euler(c("Kimpese city" = 14, Malanga = 6, Viaza = 3, "Kimpese city&Malanga" = 5, "Kimpese city&Viaza" = 5, "Viaza&Malanga" = 1, "Kimpese city&Malanga&Viaza" = 17), counts = TRUE)
+png("/results/family_venn.png", width = 800, height = 600)
 plot(family_venn, 
      fills = list(fill = c("red", "lightgreen", "blue"), alpha = 0.5), 
      labels = list(font = 2),
      quantities = TRUE)
-
+dev.off()
 ### Load data for Venn analysis at genus level
 
 genus_summary <- read_excel("Venn_analysis_genus_example_data.xlsx")
@@ -87,11 +88,12 @@ set_V <- genus_summary$V_total == 1
 venn(list(K = which(set_K), M = which(set_M), V = which(set_V)))
 
 genus_venn <- euler(c("Kimpese city" = 26, Malanga = 12, Viaza = 5, "Kimpese city&Malanga" = 5, "Kimpese city&Viaza" = 9, "Viaza&Malanga" = 1, "Kimpese city&Malanga&Viaza" = 6), counts = TRUE)
+png("/results/genus_venn.png", width = 800, height = 600)
 plot(genus_venn, 
      fills = list(fill = c("red", "lightgreen", "blue"), alpha = 0.5), 
      labels = list(font = 2),
      quantities = TRUE)
-
+dev.off()
 ### Load data for viral relative abundance analysis at family level (Plot top 5 families)
 top5_family <- read_excel("relative_abundance_family_example_data.xlsx")
 top5_family$Family_reorder  <- with(top5_family, reorder(top5_family$Family, top5_family$RelativeAbundance))
@@ -154,7 +156,9 @@ abline(v=0,lty="dotted")
 la <- apply(Fp,2,var)
 la
 fr <- la/sum(la)#calculate the percentage of the single factor can explain
+fr
 cu <- cumsum(fr)#calculate the sum of the percentage of the factors can explain
+cu
 
 collection_site <- factor(c("Kimpese city", "Kimpese city", "Kimpese city","Kimpese city","Kimpese city","Malanga", "Viaza","Viaza"))
 pca_data <- as.data.frame(out.pca$x[, 1:2])  # Get the first 2 PCs
