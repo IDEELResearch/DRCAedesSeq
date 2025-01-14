@@ -1,4 +1,5 @@
 ###########################################################################################################################################################################
+# This is an R script
 #Programmer: Wenqiao He
 #Last update: December 2024
 #Purpose: create maps of sample collection sites within the Democratic Republic of the Congo (DRC)
