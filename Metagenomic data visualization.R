@@ -2,7 +2,7 @@
 # This is an R script
 #Programmer: Wenqiao He
 #Last update: December 2024
-#Purpose: Visualization of Aedes mosquito virus metagenomic data analysis
+#Purpose: Visualization of Aedes mosquito viral metagenomic data and nanopore targeted sequencing data analysis
 ###########################################################################################################################################################################
 
 install.packages("eulerr")
