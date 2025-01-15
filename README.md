@@ -17,7 +17,7 @@ b. Nanopore targeted sequencing analysis.sh    # Bash script for nanopore data a
 a. create_maps.R   # R script to create maps for sample collection sites. Data of the DRC administrative boundaries (.shp files) are available at https://gadm.org/ and https://data.humdata.org/.
 b. Metagenomic data visualization.R   # Visualization of Aedes mosquito viral metagenomic data and nanopore targeted sequencing data analysis. This script can be executed using the example data files.
 
-# R scripts rely on functioning installations of R software (version 4.2.0) and RStudio (version 2022.02.2). Installing R and RStudio typically takes about 10–30 minutes, depending on your computer's speed, operating system, and familiarity with the process. The required packages are specified within the R scripts. Running of the "create_maps.R" and "Metagenomic data visualization.R" on the example data files takes up to 30 minutes.
+**# R scripts rely on functioning installations of R software (version 4.2.0) and RStudio (version 2022.02.2). Installing R and RStudio typically takes about 10–30 minutes, depending on your computer's speed, operating system, and familiarity with the process. The required packages are specified within the R scripts. Running of the "create_maps.R" and "Metagenomic data visualization.R" on the example data files takes up to 30 minutes.
 
 
 
