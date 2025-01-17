@@ -12,7 +12,7 @@ a. Metagenomic analysis.sh # Bash script for metagenomic data analysis to explor
 
 b. Nanopore targeted sequencing analysis.sh # Bash script for nanopore data analysis to explore mosquito species and blood meal. This file contains the needed code for basecalling, quality-filtering, and blast analysis.
 
-*# Bash scripts rely on functioning installations of BBMerge (version 38.96), Trimmomatic (version 0.36), bwa-mem2 (version 2.2.1), SAMtools (version 1.21), SPAdes (version 4.0.0), KrakenUniq (version 1.0.4), Guppy (version 6.5.7), and Blast (version 2.14.1). Installing all tools could take 1–1.5 hours. Use package managers (e.g., conda, brew, or apt) for faster installations.
+*# Bash scripts rely on functioning installations of BBMap (version 39.13), Trimmomatic (version 0.36), bwa-mem2 (version 2.2.1), SAMtools (version 1.21), SPAdes (version 4.0.0), KrakenUniq (version 1.0.4), Guppy (version 6.5.7), and Blast (version 2.14.1). Installing all tools could take 1–1.5 hours. Use package managers (e.g., conda, brew, or apt) for faster installations.
 
 #These scripts can be run on the sequencing data available at NCBI SRA: BioProject IDs PRJNA1200724 and PRJNA1200731. To run the bash scripts, please download the datasets to your local computer or compute clusters. Running of the "metagenomic data analysis.sh" usually takes days to weeks but may vary depending on access to computer clusters resources and use of the SLURM system. Due to large size of the publicly available dataset, analysis may not be feasible on a conventional desktop computer without substantial memory enhancements. Running of the "Nanopore targeted sequencing analysis.sh" usually takes less than 2 days when appropriate computing cluster resources and the SLURM system are utilized.
 
