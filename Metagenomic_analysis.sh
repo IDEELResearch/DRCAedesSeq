@@ -17,7 +17,7 @@
 cd /path_with_raw_reads/ 
 
 # merge paired-end reads using bbmerge (version 38.96) with default parameters
-module load bbmerge
+module load bbmap
 mkdir merged_reads/
 mkdir unmerged_reads/
 for i in *_R1_001.fastq.gz; do bbmerge.sh in1=${i} in2=${i%_R1_001.fastq.gz}_R2_001.fastq.gz out=/merged_reads/${i%_R1_001.fastq.gz}.fq outu1=/unmerged_reads/${i%_R1_001.fastq.gz}_R1_unmerged.fq outu2=/unmerged_reads/${i%_R1_001.fastq.gz}_R2_unmerged.fq ihist=/output_folder/${i%_R1_001.fastq.gz}_ihist.txt;done
