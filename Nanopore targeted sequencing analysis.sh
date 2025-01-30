@@ -25,7 +25,7 @@ ${guppy_basecaller}     -i new_folder \
                         --device auto
 
 
-${guppy_barcoder} -i basecalling \
+${guppy_barcoder} -i basecalling/pass \
                   -s demultiplex \
                   -r \
                   --enable_trim_barcodes \
