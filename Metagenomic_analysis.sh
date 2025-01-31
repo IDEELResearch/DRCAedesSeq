@@ -11,12 +11,12 @@
 #SBATCH --time=140:00:00
 #SBATCH --mem=100G
 
-## 1. merge paired-end reads   ###########################################################################################################################################
+## 1. Merge paired-end reads   ###########################################################################################################################################
 
-# set working directory 
+# Set working directory 
 cd /path_with_raw_reads/ 
 
-# merge paired-end reads using bbmerge (version 38.96) with default parameters
+# Merge paired-end reads using bbmerge (version 38.96) with default parameters
 module load bbmap
 mkdir merged_reads/
 mkdir unmerged_reads/
@@ -59,7 +59,7 @@ cd bam_to_fastq/
 metaspades.py --12 Lab_Mos_unmapped.fastq -o /contaminating_contigs/Lab_mosquito/
 metaspades.py --12 Mos_Control_H2O_unmapped.fastq -o /contaminating_contigs/Water_control/
 
-## 5. Align reads in field mosquito pools to contaminating contigs and removed the mapped reads #############################################################################
+## 5. Align reads in field mosquito pools to contaminating contigs and remove the mapped reads #############################################################################
 # Concatenate and index the contaminating contigs from lab mosquito and water control pools as references
 cat /contaminating_contigs/Lab_mosquito/contigs.fasta /contaminating_contigs/Water_control/contigs.fasta > cat_Lab_water_control_contigs.fasta
 bwa-mem2 index cat_Lab_water_control_contigs.fasta
@@ -69,7 +69,7 @@ mkdir align_contaminating_contigs/
 for i in *.fastq; do bwa-mem2 mem -t 10 cat_Lab_water_control_contigs.fasta ${i} -o /align_contaminating_contigs/${i%.fastq}_pairalignment_contaminating_contigs.bam; done
 cd align_contaminating_contigs/
 
-# get the mapped/unmapped reads 
+# Get the mapped/unmapped reads 
 mkdir mapped_reads/
 mkdir unmapped_reads/
 for i in *.bam; do samtools view -@ 16 -b -F 4 ${i} > /mapped_reads/${i%.bam}_mapped.bam; done
