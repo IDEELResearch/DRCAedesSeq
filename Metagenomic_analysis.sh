@@ -81,8 +81,8 @@ for i in *.bam; do bedtools bamtofastq -i ${i} -fq bam_to_fastq/${i%.bam}.fastq;
 
 ## 6. Taxonomic classification of reads remaining in field mosquito pools using KrakenUniq (version 1.0.4) with its default mode and default nt and viral databases ######################
 
-module load perl
-
+module load perl 
+module load jellyfish (version 1.1.12)
 # download and build krakenuniq default viral database
 krakenuniq-download --db viral refseq/viral/Any viral-neighbors
 krakenuniq-build --db viral --kmer-len 31 --threads 10 --taxids-for-genomes --taxids-for-sequences
