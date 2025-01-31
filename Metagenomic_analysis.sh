@@ -36,7 +36,7 @@ bwa-mem2 index al_ae_simCOI_human.fasta
 
 # Align reads to references
 cd /merged_reads/trimmomatic/
-midir alignment/
+mkdir alignment/
 for i in *_trimmed.fq; do bwa-mem2 mem -t 10 /reference_genome_folder/al_ae_simCOI_human.fasta ${i} -o /alignment/${i%.fq}_pairalignment_al_ae_simCOI_human.bam; done
 
 # Get the mapped/unmapped reads
