@@ -22,7 +22,7 @@ mkdir merged_reads/
 mkdir unmerged_reads/
 for i in *_R1_001.fastq.gz; do bbmerge.sh in1=${i} in2=${i%_R1_001.fastq.gz}_R2_001.fastq.gz out=/merged_reads/${i%_R1_001.fastq.gz}.fq outu1=/unmerged_reads/${i%_R1_001.fastq.gz}_R1_unmerged.fq outu2=/unmerged_reads/${i%_R1_001.fastq.gz}_R2_unmerged.fq ihist=/output_folder/${i%_R1_001.fastq.gz}_ihist.txt;done
 
-## 2. Quality trimming and adapter clipping using trimmomatic  (version 0.36)  #############################################################################################
+## 2. Quality trimming and adapter removal using trimmomatic  (version 0.36)  #############################################################################################
 module load trimmomatic
 mkdir trimmomatic
 for i in *.fq; do trimmomatic SE -threads 16 -phred33 ${i} /trimmomatic/${i%.fq}_trimmed.fq ILLUMINACLIP:TruSeq3-SE:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36;done
