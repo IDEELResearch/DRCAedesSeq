@@ -14,7 +14,7 @@
 # 1. select best-fit model using IQ-TREE   ###########################################################################################################################################
 
 ## Set working directory 
-cd /path_with_raw_reads/ 
+cd /path_with_fasta_files/ 
 
 ## Load or install model
 module load iqtree #version 2.4.0
