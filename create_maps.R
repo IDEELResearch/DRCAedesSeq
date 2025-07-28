@@ -124,15 +124,15 @@ Kimpese_base <- tm_shape(Kimpese) +
   tm_scale_bar(position = c("left", "bottom"), width = 0.2, text.size = 0.7) 
 
 Ceco_highlight <- tm_shape(Ceco) +
-  tm_fill("red", alpha = 0.3) +  # Example: Highlight color and transparency
+  tm_fill("#117733", alpha = 0.3) +  # Example: Highlight color and transparency
   tm_borders(col = "black") 
 
 Viaza_highlight <- tm_shape(Viaza) +
-  tm_fill("blue", alpha = 0.3) +  # Example: Highlight color and transparency
+  tm_fill("#332288", alpha = 0.3) +  # Example: Highlight color and transparency
   tm_borders(col = "black") 
 
 Malanga_highlight <- tm_shape(Malanga) +
-  tm_fill("lightgreen", alpha = 0.3) +  # Example: Highlight color and transparency
+  tm_fill("#DDCC77", alpha = 0.3) +  # Example: Highlight color and transparency
   tm_borders(col = "black")
 
 # Show Kimpese city with a red dot, search the longitude and latitude of Kimpese City in Google
