@@ -27,7 +27,7 @@ iqtree -s human_blood_associated_dicistrovirus_K4_aligned.fasta -bb 1000 -nt 8
 iqtree -s human_blood_associated_dicistrovirus_K5_1_aligned.fasta -bb 1000 -nt 8
 iqtree -s human_blood_associated_dicistrovirus_K5_aligned.fasta -bb 1000 -nt 8
 
-## Check the *.iqtree files and select the best-fitting models based on BIC values for use in RAxML-NG.
+## Check the *.iqtree files and select the best-fitting models based on BIC values for downstream analysis in RAxML-NG
 
 # 2. Generate phylogenetic trees using RAxML-NG #####################################################################################################################################
 ## Load or install RAxML-NG by using the pre-compiled binary (version 1.2.2) and generate the phylogenetic trees
