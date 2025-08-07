@@ -1,8 +1,8 @@
 ###########################################################################################################################################################################
 # This is an R script
 #Programmer: Wenqiao He
-#Last update: July 2025
-#Purpose: Visualization of Aedes mosquito viral metagenomic data (after filtering) and nanopore targeted sequencing data analysis
+#Last update: Aug 2025
+#Purpose: Visualization of Aedes mosquito viral metagenomic data analysis (after filtering) 
 ###########################################################################################################################################################################
 
 install.packages("eulerr")
@@ -55,7 +55,7 @@ library(scico)
 setwd("/PATH/")
 
 ### Load data for heatmap at family level
-family_RPM <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/family_filtering.xlsx")
+family_RPM <- read_excel("family_filtering.xlsx")
 
 family_long <- family_RPM %>%
   pivot_longer(
@@ -74,7 +74,7 @@ ggplot(family_long, aes(x = Sample, y = taxName, fill = RPM_log)) +
 
 
 ### Load data for heatmap at genus level
-genus_RPM <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/genus_filtering.xlsx")
+genus_RPM <- read_excel("genus_filtering.xlsx")
 
 genus_long <- genus_fltering %>%
   pivot_longer(
@@ -142,7 +142,7 @@ genus_bar<-ggplot(data=genus_RA_long_table, aes(x=Sample, y=genus_RA_long_table$
 genus_bar
 
 ### PCA analysis based on viral genus annotation
-PCA_df <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/PCA_genus_8pools.xlsx")
+PCA_df <- read_excel("PCA_genus_filtering.xlsx")
 PCAdf <- as.data.frame(PCA_df)
 rownames(PCAdf) <- PCAdf[,1]
 PCAdf <- PCAdf[,-1]
@@ -211,7 +211,7 @@ sort(abs(out.pca$rotation[,2]), decreasing = TRUE)[1:10]
 
 
 ### Plotting BLAST and KrakenUniq results for huamn and animal viruses
-blast_result <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/BLAST_confirmation_filtering.xlsx")
+blast_result <- read_excel("BLAST_confirmation_filtering.xlsx")
 
 annotation_plot <- ggplot(blast_result, aes(x = Sample, y = Viruses, fill = Annotation, color = Annotation)) + 
   geom_point(size = 12.5, shape = 22) +
@@ -240,43 +240,6 @@ annotation_plot <- ggplot(blast_result, aes(x = Sample, y = Viruses, fill = Anno
   guides(shape = guide_legend(override.aes = list(fill = "white")))
 
 annotation_plot
-
-### Plotting blood meal analysis results
-Blood_meal_annotation <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/Blood_meal_analysis_example_data.xlsx")
-
-Blood_meal_annotation_plot <- ggplot(Blood_meal_annotation, aes(x = Blood_meal_annotation$`Sample name`, y = Genus)) + 
-  geom_point(
-    aes(
-      fill = factor(Detection), 
-      color = factor(Detection)
-    ), 
-    size = 12, shape = 22  # shape 22 = filled square
-  ) +
-  scale_color_manual(values = c(
-    "1" = "red", 
-    "0" = "black"
-  )) +
-  scale_fill_manual(values = c(
-    "1" = "red", 
-    "0" = "white"
-  )) +
-  labs(
-    x = "Mosquito pool", 
-    color = "Detection", 
-    fill = "Detection"
-  ) +
-  theme_bw() +
-  theme(
-    panel.grid.minor = element_blank(),
-    panel.grid.major = element_blank(),
-    axis.text.x = element_text(size = 10),
-    axis.text.y = element_text(size = 10, face = "italic"),
-    axis.title = element_text(size = 12),
-    legend.text = element_text(size = 10),
-    legend.title = element_text(size = 12)
-  )
-
-Blood_meal_annotation_plot
 
 ###Pan-DENV reference selection, download, and phylogenetic tree visualization
 ##References (>10,000 bp) representing different genotypes were randomly selected from various geographic regions.  
@@ -717,3 +680,4 @@ Pegivirus_tree_merge_1 <- gheatmap(
     na.value = "gray90"
   )
 Pegivirus_tree_merge_1
+
