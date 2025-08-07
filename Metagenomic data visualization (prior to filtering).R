@@ -1,8 +1,8 @@
 ###########################################################################################################################################################################
 # This is an R script
 #Programmer: Wenqiao He
-#Last update: December 2024
-#Purpose: Visualization of Aedes mosquito viral metagenomic data and nanopore targeted sequencing data analysis
+#Last update: Aug 2025
+#Purpose: Visualization of Aedes mosquito viral metagenomic data analysis (prior to filtering)
 ###########################################################################################################################################################################
 
 install.packages("eulerr")
@@ -39,62 +39,6 @@ library(ggrepel)
 ### Set working directory###
 setwd("/PATH/")
 
-### Load data for Venn analysis at family level
-family_summary <- read_excel("Venn_analysis_family_example_data.xlsx")
-family_summary <- as.data.frame(family_summary)
-rownames(family_summary) <- family_summary$Family
-family_summary <- family_summary[,-9]
-family_summary$K_total <- family_summary$K1+family_summary$K2+family_summary$K3+family_summary$K4+family_summary$K5
-family_summary$M_total <- family_summary$M1
-family_summary$V_total <- family_summary$V2+family_summary$V3
-family_summary$total <- family_summary$M_total+family_summary$K_total+family_summary$V_total
-
-family_summary[["K_total"]][family_summary[["K_total"]] != 0] <- 1
-family_summary[["M_total"]][family_summary[["M_total"]] != 0] <- 1
-family_summary[["V_total"]][family_summary[["V_total"]] != 0] <- 1
-
-set_K <- family_summary$K_total == 1
-set_M <- family_summary$M_total == 1
-set_V <- family_summary$V_total == 1
-
-venn(list(K = which(set_K), M = which(set_M), V = which(set_V)))
-
-family_venn <- euler(c("Kimpese city" = 14, Malanga = 6, Viaza = 3, "Kimpese city&Malanga" = 5, "Kimpese city&Viaza" = 5, "Viaza&Malanga" = 1, "Kimpese city&Malanga&Viaza" = 17), counts = TRUE)
-png("/results/family_venn.png", width = 800, height = 600)
-plot(family_venn, 
-     fills = list(fill = c("red", "lightgreen", "blue"), alpha = 0.5), 
-     labels = list(font = 2),
-     quantities = TRUE)
-dev.off()
-### Load data for Venn analysis at genus level
-
-genus_summary <- read_excel("Venn_analysis_genus_example_data.xlsx")
-genus_summary <- as.data.frame(genus_summary)
-rownames(genus_summary) <- genus_summary$genus
-genus_summary <- genus_summary[,-9]
-genus_summary$K_total <- genus_summary$K1+genus_summary$K2+genus_summary$K3+genus_summary$K4+genus_summary$K5
-genus_summary$M_total <- genus_summary$M1
-genus_summary$V_total <- genus_summary$V2+genus_summary$V3
-genus_summary$total <- genus_summary$M_total+genus_summary$K_total+genus_summary$V_total
-
-genus_summary[["K_total"]][genus_summary[["K_total"]] != 0] <- 1
-genus_summary[["M_total"]][genus_summary[["M_total"]] != 0] <- 1
-genus_summary[["V_total"]][genus_summary[["V_total"]] != 0] <- 1
-genus_summary$shared_genus <- genus_summary$K_total+genus_summary$M_total+genus_summary$V_total
-
-set_K <- genus_summary$K_total == 1
-set_M <- genus_summary$M_total == 1
-set_V <- genus_summary$V_total == 1
-
-venn(list(K = which(set_K), M = which(set_M), V = which(set_V)))
-
-genus_venn <- euler(c("Kimpese city" = 26, Malanga = 12, Viaza = 5, "Kimpese city&Malanga" = 5, "Kimpese city&Viaza" = 9, "Viaza&Malanga" = 1, "Kimpese city&Malanga&Viaza" = 6), counts = TRUE)
-png("/results/genus_venn.png", width = 800, height = 600)
-plot(genus_venn, 
-     fills = list(fill = c("red", "lightgreen", "blue"), alpha = 0.5), 
-     labels = list(font = 2),
-     quantities = TRUE)
-dev.off()
 ### Load data for viral relative abundance analysis at family level (Plot top 5 families)
 top5_family <- read_excel("relative_abundance_family_example_data.xlsx")
 top5_family$Family_reorder  <- with(top5_family, reorder(top5_family$Family, top5_family$RelativeAbundance))
@@ -200,15 +144,3 @@ annotation_plot <- ggplot(annotation_result, aes(x=Sample, y=Viruses, color=`Kra
   guides(shape = guide_legend(override.aes = list(fill = "white")))
 annotation_plot
 
-### Plotting blood meal analysis results
-Blood_meal_annotation <- read_excel("Blood_meal_analysis_example_data.xlsx")
-Blood_meal_plot <- ggplot(Blood_meal_annotation, aes(x=Blood_meal_annotation$`Sample name`, y=Genus))+ 
-  geom_point(aes(fill=as.factor(Blood_meal_annotation$Detection), color=as.factor(Blood_meal_annotation$Detection)), size=6, shape=15)+
-  scale_fill_manual(values = c("0" = "white", "1" = "red"),labels = c("Negative", "Positive")) +
-  scale_color_manual(values = c("0" = "black", "1" = "red"),labels = c("Negative", "Positive"))+
-  theme(axis.text.x = element_text(size = 12),axis.text.y = element_text(size = 12,angle=15, face="italic"),axis.title = element_text(size = 14),legend.text = element_text(size = 12),legend.title = element_text(size = 13),legend.position="bottom")+
-  labs(color = "Detection", fill = "Detection")+
-  xlab("Mosquito pool")+
-  theme_bw()+theme(panel.grid.minor = element_blank(),panel.grid.major = element_blank())+theme(axis.text.x = element_text(angle = 45,hjust=1))
-
-Blood_meal_plot
