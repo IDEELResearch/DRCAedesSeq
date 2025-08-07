@@ -2,7 +2,7 @@
 # This is an R script
 #Programmer: Wenqiao He
 #Last update: Aug 2025
-#Purpose: Visualization of Aedes mosquito viral metagenomic data analysis (after filtering) 
+#Purpose: Visualization of Aedes mosquito viral metagenomic data analysis (after filtering) and phylogenetic analysis
 ###########################################################################################################################################################################
 
 install.packages("eulerr")
@@ -244,7 +244,7 @@ annotation_plot
 ###Pan-DENV reference selection, download, and phylogenetic tree visualization
 ##References (>10,000 bp) representing different genotypes were randomly selected from various geographic regions.  
 ##The "all_ref.xlsx" file include all the DENV referneces from NCBI Virus database. 
-all_ref <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/all_ref.xlsx")
+all_ref <- read_excel("all_ref.xlsx")
 
 all_ref <- all_ref %>%
   mutate(Organism_Name = str_replace(Organism_Name, "dengue virus type I", "dengue virus type 1"))%>%
@@ -269,7 +269,7 @@ random_all_ref <- result_with_continent %>%
   slice_sample(n = 3) %>%                                   # Randomly select 3 reads per group
   ungroup()
 ##Here is the final list of references included in the Pan-DENV phylogenetic analysis. Some references were removed due to high diversity compared to others of the same serotype. A Zika virus sequence was included as the outgroup.)
-pan_denv_refs <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/DENV_all_serotypes_metadata.xlsx")
+pan_denv_refs <- read_excel("DENV_all_serotypes_metadata.xlsx")
 pan_denv_published_refs <- subset(pan_denv_refs,pan_denv_refs$This_study=="no") 
 ##Download references from NCBI 
 acc_all <- pan_denv_published_refs$Accession
@@ -279,10 +279,10 @@ fasta_seqs <- lapply(acc_all, function(acc) {
 
 combined_fasta <- unlist(fasta_seqs)
 
-writeLines(combined_fasta, "C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/Pan_DENV_all_refs.fasta")
+writeLines(combined_fasta, "Pan_DENV_all_refs.fasta")
 
 ##Load metadata for phylogenetic tree visualization
-Pan_DENV_raxmlng <- read.tree("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/DENV_all_serotype_v5_v3_final_raxml_ng.raxml.support")
+Pan_DENV_raxmlng <- read.tree("DENV_all_serotype_raxml_ng.raxml.support")
 Pan_DENV_raxmlng_tree <- ggtree(all_serotypes_raxmlng) %<+% pan_denv_refs +
   geom_tiplab(aes(color = This_study), size = 2.5) +
   scale_color_manual(
@@ -344,7 +344,7 @@ DENV2_random_ref <- DENV2_longest %>%
   slice_sample(n=15) %>%
   ungroup()
 ##This is the final list of references included in the DENV-2 phylogenetic analysis. Some were excluded due to high genetic divergence. References with genotype information from a published study (PMID: 34188091) were included. A DENV-4 sequence was used as the outgroup.
-denv2_refs <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/DENV2_metadata.xlsx")
+denv2_refs <- read_excel("DENV2_metadata.xlsx")
 denv2_published_refs <- subset(denv2_refs,denv2_refs$This_study=="no") 
 ##Download references from NCBI 
 acc_denv2 <- denv2_published_refs$Accession
@@ -354,9 +354,9 @@ fasta_seqs_denv2 <- lapply(acc_denv2, function(acc) {
 
 combined_fasta_denv2 <- unlist(fasta_seqs_denv2)
 
-writeLines(combined_fasta_denv2, "C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/DENV2_all_refs.fasta")
+writeLines(combined_fasta_denv2, "DENV2_all_refs.fasta")
 ##Load metadata for phylogenetic tree visualization
-DENV2_raxmlng_tree <- read.tree("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/DENV2_test2_rmdup_aligned_raxml_ng_v1.raxml.support")
+DENV2_raxmlng_tree <- read.tree("DENV2_raxml_ng.raxml.support")
 DENV2_tree <- ggtree(DENV2_raxmlng_tree)%<+% denv2_refs +
   geom_tiplab(aes(color = This_study), size = 2.5) +
   scale_color_manual(
@@ -427,7 +427,7 @@ DENV4_random_ref <- DENV4_longest %>%
   slice_sample(n=20) %>%
   ungroup()
 ##This is the final list of references included in the DENV-4 phylogenetic analysis. Some were excluded due to high genetic divergence. References with genotype information from a published study (PMID: 37293986) were included. A DENV-2 sequence was used as the outgroup.
-denv4_refs <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/DENV4_metadata.xlsx")
+denv4_refs <- read_excel("DENV4_metadata.xlsx")
 denv4_published_refs <- subset(denv4_refs,denv4_refs$This_study=="no") 
 ##Download references from NCBI 
 acc_denv4 <- denv4_published_refs$Accession
@@ -437,10 +437,10 @@ fasta_seqs_denv4 <- lapply(acc_denv4, function(acc) {
 
 combined_fasta_denv4 <- unlist(fasta_seqs_denv4)
 
-writeLines(combined_fasta_denv4, "C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/DENV4_all_refs.fasta")
+writeLines(combined_fasta_denv4, "DENV4_all_refs.fasta")
 
 ##Load metadata for phylogenetic tree visualization
-DENV4_raxmlng_tree <- read.tree("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/DENV4_nozika_final_raxml_ng_v1.raxml.support")
+DENV4_raxmlng_tree <- read.tree("DENV4_raxml_ng.raxml.support")
 DENV4_tree <- ggtree(DENV4_raxmlng_tree)%<+% denv4_refs +
   geom_tiplab(aes(color = This_study), size = 2.5) +
   scale_color_manual(
@@ -493,7 +493,7 @@ DENV4_merge_2 <- gheatmap(
 DENV4_merge_2
 
 ###Bat faecal associated dicistrovirus 4 reference (dicistrovirus sequences from differnet hosts) download and phylogenetic tree visualization
-bat_dic_refs <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/bat_dic_metadata.xlsx")
+bat_dic_refs <- read_excel("bat_dic_metadata.xlsx")
 bat_dic_published_refs <- subset(bat_dic_refs,bat_dic_refs$This_study=="no") 
 ##Download references from NCBI 
 acc_bat_dic <- bat_dic_published_refs$Accession
@@ -503,12 +503,12 @@ fasta_seqs_bat_dic <- lapply(acc_bat_dic, function(acc) {
 
 combined_fasta_bat_dic <- unlist(fasta_seqs_bat_dic)
 
-writeLines(combined_fasta_bat_dic, "C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/bat_dic_all_refs.fasta")
+writeLines(combined_fasta_bat_dic, "bat_dic_all_refs.fasta")
 
 ##Load metadata for phylogenetic tree visualization
-bat_dic_metadata <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/bat_dic_metadata.xlsx")
+bat_dic_metadata <- read_excel("bat_dic_metadata.xlsx")
 
-bat_dic <- read.tree("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/Bat_dic_sequences_from_pools_aligned_cut_raxml_ng.raxml.support")
+bat_dic <- read.tree("Bat_dic_raxml_ng.raxml.support")
 bat_dic_tree <- ggtree(bat_dic)%<+% bat_dic_metadata +
   geom_tiplab(aes(color = This_study), size = 5,, align=TRUE, linetype="dashed", linesize=0.5, offset=0.01) +
   scale_color_manual(
@@ -541,7 +541,7 @@ bat_dic_tree_merge_1
 
 
 ###Human blood-associated dicistrovirus reference (dicistrovirus sequences from different hosts) download and phylogenetic tree visualization
-human_dic_refs <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/bat_dic_metadata.xlsx")
+human_dic_refs <- read_excel("human_dic_metadata.xlsx")
 human_dic_published_refs <- subset(human_dic_refs,bat_dic_refs$This_study=="no") 
 ##Download references from NCBI 
 acc_human_dic <- human_dic_published_refs$Accession
@@ -551,10 +551,10 @@ fasta_seqs_human_dic <- lapply(acc_human_dic, function(acc) {
 
 combined_fasta_human_dic <- unlist(fasta_seqs_human_dic)
 
-writeLines(combined_fasta_human_dic, "C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/human_dic_all_refs.fasta")
+writeLines(combined_fasta_human_dic, "human_dic_all_refs.fasta")
 ##Load metadata for phylogenetic tree visualization. Three separate trees were generated for Human blood-associated dicistrovirus, as reads mapped to different regions of the genome.
-human_dic_metadata <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/human_dis_metadate.xlsx")
-human_dic_K5_1 <- read.tree("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/Human_dis_K5_1_final_refs_aligned_cut_raxml_ng.raxml.support")
+human_dic_metadata <- read_excel("human_dic_metadate.xlsx")
+human_dic_K5_1 <- read.tree("Human_dic_K5_1_raxml_ng.raxml.support")
 human_dic_K5_1_tree <- ggtree(human_dic_K5_1)%<+% human_dic_metadata+
   geom_tiplab(aes(color = This_study), size = 5, align=TRUE, linetype="dashed", linesize=0.5, offset=0.01) +
   scale_color_manual(
@@ -584,7 +584,7 @@ human_dic_K5_1_tree_merge_1 <- gheatmap(
   )
 human_dic_K5_1_tree_merge_1
 
-human_dic_K5_2 <- read.tree("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/Human_dis_K5_2_final_refs_aligned_cut_raxml_ng.raxml.support")
+human_dic_K5_2 <- read.tree("Human_dic_K5_2_raxml_ng.raxml.support")
 human_dic_K5_2_tree <- ggtree(human_dic_K5_2)%<+% human_dic_metadata+
   geom_tiplab(aes(color = This_study), size = 5, align=TRUE, linetype="dashed", linesize=0.5, offset=0.01) +
   scale_color_manual(
@@ -610,7 +610,7 @@ human_dic_K5_2_tree_merge_1 <- gheatmap(
   )
 human_dic_K5_2_tree_merge_1
 
-human_dic_K4 <- read.tree("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/Human_dis_K4_final_refs_aligned_cut_raxml_ng.raxml.support")
+human_dic_K4 <- read.tree("Human_dic_K4_raxml_ng.raxml.support")
 human_dic_K4_tree <- ggtree(human_dic_K4)%<+% human_dic_metadata+
   geom_tiplab(aes(color = This_study), size = 5, align=TRUE, linetype="dashed", linesize=0.5, offset=0.01) +
   scale_color_manual(
@@ -638,7 +638,7 @@ human_dic_K4_tree_merge_1
 
 
 ###Human pegivirus reference (pegivirus sequences from different hosts) download and phylogenetic tree visualization
-pegivirus_refs <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/Pegivirus_metadata.xlsx")
+pegivirus_refs <- read_excel("Pegivirus_metadata.xlsx")
 pegivirus_published_refs <- subset(pegivirus_refs,pegivirus_refs$This_study=="no") 
 ##Download references from NCBI 
 acc_pegivirus <- pegivirus_published_refs$Accession
@@ -648,14 +648,14 @@ fasta_seqs_pegivirus <- lapply(acc_pegivirus, function(acc) {
 
 combined_fasta_pegivirus <- unlist(fasta_seqs_pegivirus)
 
-writeLines(combined_fasta_pegivirus, "C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/pegivirus_all_refs.fasta")
+writeLines(combined_fasta_pegivirus, "pegivirus_all_refs.fasta")
 ##Load metadata for phylogenetic tree visualization
-pegivirus_metadata <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/pegivirus_metadata.xlsx")
+pegivirus_metadata <- read_excel("pegivirus_metadata.xlsx")
 pegivirus_host_data <- as.data.frame(pegivirus_metadata[, c("Host","Accession")])
 rownames(pegivirus_host_data) <- pegivirus_host_data$Accession
 pegivirus_host_data$Accession <- NULL
 
-Pegivirus <- read.tree("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/Pegivrus_final_refs_aligned_cut_raxml_ng.raxml.support")
+Pegivirus <- read.tree("Pegivrus_raxml_ng.raxml.support")
 Pegivirus_tree <- ggtree(Pegivirus)%<+% pegivirus_metadata +
   geom_tiplab(aes(color = This_study), size = 5, align=TRUE, linetype="dashed", linesize=0.5, offset=0.01) +
   scale_color_manual(
@@ -680,4 +680,5 @@ Pegivirus_tree_merge_1 <- gheatmap(
     na.value = "gray90"
   )
 Pegivirus_tree_merge_1
+
 
