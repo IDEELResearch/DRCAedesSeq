@@ -37,10 +37,10 @@ library(tmaptools)
 library(ggrepel)
 
 ### Set working directory###
-setwd("/PATH/")
+setwd("/example data/")
 
 ### Load data for viral relative abundance analysis at family level (Plot top 5 families)
-top5_family <- read_excel("relative_abundance_family_example_data.xlsx")
+top5_family <- read_excel("relative_abundance_family_unfiltering.xlsx")
 top5_family$Family_reorder  <- with(top5_family, reorder(top5_family$Family, top5_family$RelativeAbundance))
 top5_family$label <- paste(top5_family$Family, round(top5_family$RelativeAbundance,digits=2), sep = " ")
 
@@ -60,7 +60,7 @@ family_bar<-ggplot(data=top5_family, aes(x=top5_family$SampleName, y=top5_family
 family_bar
 
 ### Load data for viral relative abundance analysis at genus level (Plot top 5 genera)
-top5_genus <- read_excel("relative_abundance_genus_example_data.xlsx")
+top5_genus <- read_excel("relative_abundance_genus_unfiltering.xlsx")
 top5_genus$Genus_reorder  <- with(top5_genus, reorder(top5_genus$Genus, top5_genus$RelativeAbundance))
 top5_genus$label <- paste(top5_genus$Genus, round(top5_genus$RelativeAbundance,digits=2), sep = " ")
 
@@ -78,9 +78,9 @@ genus_bar<-ggplot(data=top5_genus, aes(x=top5_genus$SampleName, y=top5_genus$Rel
         legend.title = element_text(size = 12))   
 genus_bar
 
-### PCA analysis based on viral genus annotation
+### PCA analysis based on viral genus annotation (unfiltering)
 
-PCAdf <- read_excel("PCA_analysis_genus_example_data.xlsx")
+PCAdf <- read_excel("PCA_analysis_genus_unfiltering.xlsx")
 PCAdf <- as.data.frame(PCAdf)
 rownames(PCAdf) <- PCAdf[,1]
 PCAdf <- PCAdf[,-1]
@@ -127,20 +127,3 @@ pca_plot <- ggplot(pca_data, aes(x = PC1, y = PC2, color = CollectionSite, label
   geom_text_repel() + 
   scale_color_manual(values = c("Kimpese city" = "red", "Malanga" = "lightgreen", "Viaza" = "blue"))
 pca_plot
-
-### Plotting blast and krakenuniq results for huamn and animal viruses
-
-annotation_result <- read_excel("BLAST_krakenuniq_results_example_data.xlsx")
-annotation_plot <- ggplot(annotation_result, aes(x=Sample, y=Viruses, color=`Krakenuniq annonation`, fill=`Krakenuniq annonation`, shape=Blast))+ geom_point(size=12.5)+scale_shape_manual(values = c(15,16))+
-  labs(x="Mosquito pool", y="", color="Krakenuniq annotation result",fill="Krakenuniq annotation result", shape="Blast result")+
-  theme(axis.text.y = element_text(size = 30, face="italic"),
-        axis.text.x = element_text(size = 30),# Specify family here
-        axis.title = element_text(size = 30),  # Specify family here
-        legend.text = element_text(size = 28),  # Specify family here
-        legend.title = element_text(size = 30))+
-  scale_color_manual(values = c("negative" = "white", "nt and viral databases" = "green", "viral database" = "purple", "nt database"= "blue"))+
-  scale_fill_manual(values = c("negative" = "black", "nt and viral databases" = "green", "viral database" = "purple", "nt database"= "blue"))+
-  scale_y_discrete(labels=function(x) str_wrap(x, width=27))+theme_bw()+theme(panel.grid.minor = element_blank(),panel.grid.major = element_blank())+
-  guides(shape = guide_legend(override.aes = list(fill = "white")))
-annotation_plot
-
