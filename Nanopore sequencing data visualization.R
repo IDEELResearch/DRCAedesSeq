@@ -11,7 +11,7 @@ library(dplyr)
 library(ggplot2)
 
 ### Plotting blood meal analysis results
-Blood_meal_annotation <- read_excel("C:/Users/wenqiao/Mosquito viral metagenomic/uploaded script/revision/Blood_meal_analysis_example_data.xlsx")
+Blood_meal_annotation <- read_excel("/example data/Blood_meal_analysis_example_data.xlsx")
 
 Blood_meal_annotation_plot <- ggplot(Blood_meal_annotation, aes(x = Blood_meal_annotation$`Sample name`, y = Genus)) + 
   geom_point(
@@ -46,3 +46,4 @@ Blood_meal_annotation_plot <- ggplot(Blood_meal_annotation, aes(x = Blood_meal_a
   )
 
 Blood_meal_annotation_plot
+
