@@ -23,10 +23,10 @@ c. Phylogenetic tree analysis.sh # Bash script for phylogenetic analysis.
 
 a. create_maps.R # R script to create maps for sample collection sites. Data of the DRC administrative boundaries (.shp files) are available at https://gadm.org/ and https://data.humdata.org/.
 
-b. Metagenomic data visualization (prior to filtering).R # Visualization of Aedes mosquito viral metagenomic data analysis. This script can be executed using the example data files.
+b. Metagenomic data visualization (filtering).R # Visualization of Aedes mosquito viral metagenomic data analysis (after filtering) and phylogenetic analysis. This script can be executed using the example data files.
 
-c. Metagenomic data visualization (filtering).R # Visualization of Aedes mosquito viral metagenomic data analysis (after filtering) and phylogenetic analysis. This script can be executed using the example data files.
+c. Nanopore sequencing data visualization.R # Visualization of Aedes mosquito nanopore sequencing data analysis (blood meal analysis). This script can be executed using the example data files.
 
-d. Nanopore sequencing data visualization.R # Visualization of Aedes mosquito nanopore sequencing data analysis (blood meal analysis). This script can be executed using the example data files.
+d. Metagenomic data visualization (prior to filtering).R # Visualization of Aedes mosquito viral metagenomic data analysis. This script can be executed using the example data files.
 
-*# R scripts rely on functioning installations of R software (version 4.2.0) and RStudio (version 2022.02.2). Installing R and RStudio typically takes about 10–30 minutes, depending on your computer's speed, operating system, and familiarity with the process. The required packages are specified within the R scripts. Running of the "create_maps.R", "Metagenomic data visualization (prior to filtering).R", "Metagenomic data visualization (filtering).R", and "Nanopore sequencing data visualization.R" on the example data files takes up to 30 minutes.
+*# R scripts rely on functioning installations of R software (version 4.2.0) and RStudio (version 2022.02.2). Installing R and RStudio typically takes about 10–30 minutes, depending on your computer's speed, operating system, and familiarity with the process. The required packages are specified within the R scripts. Running of the "create_maps.R", "Metagenomic data visualization (filtering).R", "Nanopore sequencing data visualization.R", and "Metagenomic data visualization (prior to filtering).R" on the example data files takes up to 30 minutes.
