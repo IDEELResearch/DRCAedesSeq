@@ -17,7 +17,7 @@
 cd /path_with_fasta_files/ 
 
 ## Load or install model
-module load iqtree #version 2.4.0
+module load iqtree #version 2.4.0 
 iqtree -s DENV2_aligned.fasta -bb 1000 -nt 8
 iqtree -s DENV4_aligned.fasta -bb 1000 -nt 8
 iqtree -s Pan_DENV_aligned.fasta -bb 1000 -nt 8
