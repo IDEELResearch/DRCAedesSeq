@@ -54,6 +54,76 @@ library(scico)
 ### Set working directory###
 setwd("/example data/")
 
+### Load data to show the status of filtering after applying the applying the RPM < 10 threshold and index-hopping filter at family and genus level
+
+status_colors <- c(
+  "Pass" = "#66c2a5",                         # teal green
+  "RPM < 10" = "#fc8d62",                       # warm orange
+  "Do not pass index-hopping threshold" = "#e78ac3",  # pinkish mauve
+  "Negative" = "white",                      # soft blue
+  "RPM < 10 and do not pass index-hopping threshold" = "#ffd92f")
+## Family level
+family_filtering <- read_excel("/example data/family_filtering_status_labels.xlsx")
+family_long_complete <- family_filtering %>%
+  complete(taxName, Sample, fill = list(label = NA)) %>%
+  mutate(label = ifelse(is.na(label), "Negative", label)) 
+
+family_long_complete <- family_long_complete %>%
+  mutate(label = factor(label, levels = c(
+    "Pass",
+    "RPM < 10",
+    "Do not pass index-hopping threshold",
+    "RPM < 10 and do not pass index-hopping threshold",
+    "Negative"
+  )))
+
+ggplot(family_long_complete, aes(x = Sample, y = taxName, fill = label)) +
+  geom_tile(color = "grey") +  # black border for all tiles
+  scale_fill_manual(
+    values = status_colors,
+    name = "Status of filtering",
+    na.value = "white"  # missing labels will be white
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+    axis.text.y = element_text(size = 10, face = "italic"),
+    panel.background = element_blank(),
+    panel.grid = element_blank()
+  ) +
+  labs(title = "Status of Family Filtering per Sample")
+
+## Genus level
+genus_filtering <- read_excel("/example data/genus_filtering_status_labels.xlsx")
+genus_long_complete <- genus_filtering %>%
+  complete(taxName, Sample, fill = list(label = NA)) %>%
+  mutate(label = ifelse(is.na(label), "Negative", label)) 
+
+genus_long_complete <- genus_long_complete %>%
+  mutate(label = factor(label, levels = c(
+    "Pass",
+    "RPM < 10",
+    "Do not pass index-hopping threshold",
+    "RPM < 10 and do not pass index-hopping threshold",
+    "Negative"
+  )))
+
+ggplot(genus_long_complete, aes(x = Sample, y = taxName, fill = label)) +
+  geom_tile(color = "grey") +  # black border for all tiles
+  scale_fill_manual(
+    values = status_colors,
+    name = "Status of filtering",
+    na.value = "white"  # missing labels will be white
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+    axis.text.y = element_text(size = 10, face = "italic"),
+    panel.background = element_blank(),
+    panel.grid = element_blank()
+  ) +
+  labs(title = "Status of Genus Filtering per Sample")
+
 ### Load data for heatmap at the family level
 family_RPM <- read_excel("family_heatmap_filtering.xlsx")
 family_long <- family_RPM %>%
@@ -681,3 +751,4 @@ Pegivirus_tree_merge_1 <- gheatmap(
     na.value = "gray90"
   )
 Pegivirus_tree_merge_1
+
