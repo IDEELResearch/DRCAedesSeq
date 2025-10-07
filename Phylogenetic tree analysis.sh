@@ -34,7 +34,6 @@ iqtree -s human_blood_associated_dicistrovirus_K5_aligned.fasta -bb 1000 -nt 8
 /path_with_the_raxml-ng_file/raxml-ng --all --msa DENV2_aligned.fasta --outgroup KR011349.2 --model GTR+F+I+G4 --bs-trees 1000 --threads 8 --prefix DENV2_aligned_raxml_ng
 /path_with_the_raxml-ng_file/raxml-ng --all --msa DENV4_aligned.fasta --outgroup EU179857.1 --model GTR+F+I+G4 --bs-trees 1000 --threads 8 --prefix DENV4_aligned_raxml_ng
 /path_with_the_raxml-ng_file/raxml-ng --all --msa Pan_DENV_aligned.fasta --outgroup NC012532.1 --model GTR+F+I+G4 --bs-trees 1000 --threads 8 --prefix Pan_DENV_aligned_raxml_ng
-/path_with_the_raxml-ng_file/raxml-ng --all --msa Pan_DENV_aligned.fasta --outgroup NC012532.1 --model GTR+F+I+G4 --bs-trees 1000 --threads 8 --prefix Pan_DENV_aligned_raxml_ng
 /path_with_the_raxml-ng_file/raxml-ng --all --msa Bat_faecal_associated_dicistrovirus_4_aligned.fasta --model TPM3+F+R2 --bs-trees 1000 --prefix Bat_faecal_associated_dicistrovirus_4_aligned_raxml_ng
 /path_with_the_raxml-ng_file/raxml-ng --all --msa Pegivirus_aligned.fasta --model HKY+F+G4 --outgroup AF176573.1,OQ832071.1 --bs-trees 1000 --prefix Pegivirus_aligned_raxml_ng
 /path_with_the_raxml-ng_file/raxml-ng --all --msa human_blood_associated_dicistrovirus_K4_aligned.fasta --model TPM3+F+I+G4 --bs-trees 1000 --prefix human_blood_associated_dicistrovirus_K4_aligned_raxml_ng
