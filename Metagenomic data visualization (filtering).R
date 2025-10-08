@@ -144,7 +144,7 @@ ggplot(family_long, aes(x = Sample, y = taxName, fill = RPM_log)) +
 
 ### Load data for heatmap at the genus level
 genus_RPM <- read_excel("genus_heatmap_filtering.xlsx")
-genus_long <- genus_fltering %>%
+genus_long <- genus_RPM %>%
   pivot_longer(
     cols = -taxName,
     names_to = "Sample",
@@ -751,4 +751,5 @@ Pegivirus_tree_merge_1 <- gheatmap(
     na.value = "gray90"
   )
 Pegivirus_tree_merge_1
+
 
