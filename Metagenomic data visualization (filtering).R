@@ -353,7 +353,7 @@ writeLines(combined_fasta, "Pan_DENV_all_refs.fasta")
 
 ## Load the phylogenetic tree for visualization
 Pan_DENV_raxmlng <- read.tree("DENV_all_serotypes_raxml_ng.raxml.support")
-Pan_DENV_raxmlng_tree <- ggtree(all_serotypes_raxmlng) %<+% pan_denv_refs +
+Pan_DENV_raxmlng_tree <- ggtree(Pan_DENV_raxmlng) %<+% pan_denv_refs +
   geom_tiplab(aes(color = This_study), size = 2.5) +
   scale_color_manual(
     values = c("yes" = "red", "no" = "black")
@@ -751,5 +751,6 @@ Pegivirus_tree_merge_1 <- gheatmap(
     na.value = "gray90"
   )
 Pegivirus_tree_merge_1
+
 
 
